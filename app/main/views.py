@@ -1,7 +1,7 @@
 
 from . import main
-from flask import render_template,url_for
-from .. import db,photos
+from flask import render_template,redirect, url_for,abort,flash,request
+from flask_login import login_required, current_user
 
 # from ..email import mail_message
 

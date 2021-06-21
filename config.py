@@ -1,8 +1,6 @@
 import os
 class Config():
    
-    BASE_URL='http://quotes.stormconsultancy.co.uk/random.json'
-
     MAIL_SERVER='smtp.googlemail.com'
     MAIL_PORT=587
     MAIL_USE_TLS = True
