@@ -1,5 +1,6 @@
 import os
 class Config():
+    
    
     MAIL_SERVER='smtp.googlemail.com'
     MAIL_PORT=587
@@ -21,6 +22,7 @@ class ProdConfig(Config):
 
 
 class DevConfig(Config):
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://moringa:dynamo@localhost/dynamo'
     DEBUG =True
 
 config_options = {

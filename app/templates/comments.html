@@ -1,0 +1,31 @@
+{%extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf%}
+{%block content%}
+<div class="blogpage "style="background-color: rgb(2, 2, 32);color:white;">
+    <div class="row">
+        <div class="col-md-2">
+        <a class="btn btn-primary" href="/blogs">Back</a>
+        </div>
+        <div class="col-md-8">
+            <h2>Enjoy reading</h2>
+            <h4>{{blog.title}}</h4>
+            <p>{{format_blog|safe}}</p>
+            <hr>
+            <h4>--Comments --</h4>
+            <ul>
+                {%for comment in comments %}
+                <li>
+                    {{comment.comment}}
+                </li>
+                {%endfor%}
+            </ul>
+        
+        
+
+       </div>
+        <div class="col-md-2"></div>
+
+
+
+    </div>
+    

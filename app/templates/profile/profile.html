@@ -1,0 +1,45 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="container " style="background-color: rgb(2, 2, 32);color:white;">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <h3> {{user.username| capitalize}} </h3>
+            <div class="card card-body">
+                {% if user.bio %}
+                <p> {{user.bio}}</p>
+                {%else%}
+                <p> {{user.username| capitalize}} has no bio </p>
+                {% endif %}
+
+                {% if user == current_user %}
+                <a class="btn btn-primary" href="{{url_for('main.update_pic',uname=user.username)}}">Edit
+                    profile</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4">
+
+            {% if user.profile_pic_path %}
+            <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail" height="200px"
+                width="200px" style="border-radius: 20%; border-bottom: 2px solid green;">
+            {%else%}
+            <p>No profile picture</p>
+            {% endif %}
+
+            {% if user == current_user %}
+            <form action="{{url_for('main.update_pic',uname=user.username)}}" method="post"
+                enctype="multipart/form-data">
+
+                <input type="file" name="photo" class="form-control" required>
+                <input type="submit" class="btn btn-primary">
+            </form>
+            {% endif %}
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+
+</div>
+
+{% endblock %}
