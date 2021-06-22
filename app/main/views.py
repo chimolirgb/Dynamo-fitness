@@ -2,8 +2,9 @@
 from . import main
 from flask import render_template,redirect, url_for,abort,flash,request
 from flask_login import login_required, current_user
-from ..models import User,Blog
-from .forms import BlogForm,CommentsForm,UpdateProfile
+from ..models import User,Blog,Comment,Subscribe
+from .. import db
+from .forms import BlogForm,CommentsForm,UpdateProfile,SubscriptionForm
 import markdown2 
 
 from ..email import mail_message
@@ -21,6 +22,7 @@ def fitness():
    return render_template('fitness.html')
 
 @main.route('/blogs')
+
 def blog():
     # user = User.query.filter_by(username = uname).first()
 
@@ -53,6 +55,8 @@ def create():
     
     return render_template("create_blog.html", blog_form=form)
 
+
+@main.route('/comments/<int:id>',methods=['POST','GET'])
 @login_required
 def comments(id):
     blog = Blog.query.get(id)
@@ -81,6 +85,19 @@ def comments(id):
     comment = Comment.query.filter_by(id=id).all()
     format_blog = markdown2.markdown(blog.blog,extras=["code-friendly", "fenced-code-blocks"])
     return  render_template("comments.html", blog=blog, format_blog=format_blog , commentform=commentform, comments=comment,subscribeform=subscribeform)
+   
+
+@main.route('/deleteblog/<int:id>', methods=['GET', 'POST'])
+@login_required
+def deleteBlog(id):
+    blog = Blog.query.get_or_404(id)
+    db.session.delete(blog)
+    db.session.commit()
+    return redirect(url_for('main.blog'))
+
+    return render_template('blogs.html')
+
+
 
 
 @main.route('/user/<uname>')

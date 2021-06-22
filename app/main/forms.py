@@ -14,3 +14,7 @@ class BlogForm(FlaskForm):
 class CommentsForm(FlaskForm):
     comment = TextAreaField('Comment', validators=[required()])
     submit = SubmitField('Submit')
+
+class SubscriptionForm(FlaskForm):
+    email = StringField('Your Email Address',validators=[required(),Email()])
+    submit = SubmitField('Subscribe')

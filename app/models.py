@@ -18,6 +18,7 @@ class User(UserMixin,db.Model):
     bio= db.Column(db.String(255))
     profile_pic_path= db.Column(db.String())
     pass_secure= db.Column(db.String(255))
+    comment = db.relationship('Comment',backref = 'user',passive_deletes=True,lazy='dynamic')
 
     @property
     def password(self):
@@ -44,7 +45,6 @@ class Blog(db.Model):
         author= db.Column(db.String(20))
         blog= db.Column(db.String(1000))
         posted = db.Column(db.DateTime,default=datetime.utcnow)
-        user_id = db.Column(db.Integer, db.ForeignKey("users.id",ondelete='CASCADE'))
         comments = db.relationship('Comment', backref='blog', lazy='dynamic')
 
         def save_blog(self):
@@ -76,3 +76,11 @@ class Comment(db.Model):
                 
         def __repr__(self):
                 return f'Comment: {self.comment}'
+class Subscribe(db.Model):
+        __tablename__ = 'subscribers'
+        id = db.Column(db.Integer, primary_key=True)
+        email = db.Column(db.String(50))
+
+        def save_email(self):
+                db.session.add(self)
+                db.session.commit()
