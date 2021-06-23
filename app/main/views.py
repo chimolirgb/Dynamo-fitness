@@ -16,10 +16,15 @@ def index():
    return render_template('index.html' )
 
 
-@main.route('/fitness')
-def fitness():
+@main.route('/nutrition')
+def nutrition():
 
-   return render_template('fitness.html')
+   return render_template('nutrition.html')
+
+@main.route('/workouts')
+def workouts():
+
+   return render_template('workouts.html')
 
 @main.route('/blogs')
 

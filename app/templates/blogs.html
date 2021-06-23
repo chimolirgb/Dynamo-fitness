@@ -32,7 +32,7 @@
                     <a class="btn btn-default btn-danger"href="{{url_for('main.deleteBlog', id = blog.id)}}" class="card-link">Delete</a>
             
                     {%else %}
-                    <a href="{{url_for('main.blog')}}" class="btn btn-default btn-success">
+                    <a href="{{url_for('auth.login')}}" class="btn btn-default btn-success">
                         Read More</a>
                     <a class="btn btn-default btn-danger" href="{{url_for('main.blog')}}" class="card-link">Delete</a>
                     
