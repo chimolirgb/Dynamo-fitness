@@ -3,7 +3,7 @@ from . import main
 from flask import render_template,redirect, url_for,abort,flash,request
 from flask_login import login_required, current_user
 from ..models import User,Blog,Comment,Subscribe
-from .. import db
+from .. import db,photos
 from .forms import BlogForm,CommentsForm,UpdateProfile,SubscriptionForm
 import markdown2 
 
@@ -48,11 +48,16 @@ def create():
         title = form.title.data
         blog= form.blog.data
         author = form.author.data
+        if 'photo' in request.files:
+            pic = photos.save(request.files['photo'])
+            file_path = f"photos/{pic}"
+            image = file_path
         
-        new_blog = Blog(title=title,blog=blog, author=author)
+        new_blog = Blog(title=title,blog=blog, author=author, image = image)
         new_blog.save_blog()
         db.session.add(new_blog)
         db.session.commit()
+        
      
         return redirect(url_for('main.blog'))
       
@@ -64,15 +69,16 @@ def create():
 @main.route('/comments/<int:id>',methods=['POST','GET'])
 @login_required
 def comments(id):
-    blog = Blog.query.get(id)
+    blog = Blog.query.filter_by(id = id).first()
     commentform = CommentsForm()
     subscribeform = SubscriptionForm()
     if commentform.validate_on_submit():
+        name = commentform.name.data
         comment= commentform.comment.data
-        new_comment=Comment(comment=comment)
+        new_comment=Comment(name = name ,comment=comment, blog= blog)
         new_comment.save_comment()
-        db.session.add(new_comment)
-        db.session.commit()
+        # db.session.add(new_comment)
+        # db.session.commit()
         return redirect(url_for('main.comments',id = id))
     
     if subscribeform.validate_on_submit():
@@ -84,12 +90,12 @@ def comments(id):
 
         mail_message("Thank You for Subscribing","/thank_you",sub.email,sub=sub)
         
-        return redirect(url_for('main.comments',id= id))
-    
-    
-    comment = Comment.query.filter_by(id=id).all()
-    format_blog = markdown2.markdown(blog.blog,extras=["code-friendly", "fenced-code-blocks"])
-    return  render_template("comments.html", blog=blog, format_blog=format_blog , commentform=commentform, comments=comment,subscribeform=subscribeform)
+        return redirect(url_for('main.comments',id= blog.id))
+    comments = Comment.query.filter_by(blog_id =blog.id )
+    title= blog.title
+    # comment = Comment.query.filter_by(id=id).all()
+    # format_blog = markdown2.markdown(blog.blog,extras=["code-friendly", "fenced-code-blocks"])
+    return  render_template("comments.html", blog=blog,  commentform=commentform,subscribeform=subscribeform,comments=comments)
    
 
 @main.route('/deleteblog/<int:id>', methods=['GET', 'POST'])
@@ -108,7 +114,7 @@ def deleteBlog(id):
 @main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
-
+    title = user.username
     if user is None:
         abort(404)
 
@@ -124,9 +130,12 @@ def update_profile(uname):
 
     if form.validate_on_submit():
         user.bio = form.bio.data
-
-        db.session.add(user)
-        db.session.commit()
+        if "profile-pic" in request.files:
+            pic = photos.save(request.files["profile-pic"])
+            file_path = f"photos/{pic}"
+            user.image = file_path
+            db.session.commit()
+            
 
         return redirect(url_for('.profile',uname=user.username))
 

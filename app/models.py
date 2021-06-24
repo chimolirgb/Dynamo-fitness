@@ -19,6 +19,7 @@ class User(UserMixin,db.Model):
     profile_pic_path= db.Column(db.String())
     pass_secure= db.Column(db.String(255))
     comment = db.relationship('Comment',backref = 'user',passive_deletes=True,lazy='dynamic')
+    image = db.Column(db.String(255))
 
     @property
     def password(self):
@@ -46,6 +47,7 @@ class Blog(db.Model):
         blog= db.Column(db.String(1000))
         posted = db.Column(db.DateTime,default=datetime.utcnow)
         comments = db.relationship('Comment', backref='blog', lazy='dynamic')
+        image = db.Column(db.String)
 
         def save_blog(self):
                 db.session.add(self)
@@ -62,6 +64,7 @@ class Blog(db.Model):
 class Comment(db.Model):
         __tablename__ = 'comments'
         id = db.Column(db.Integer, primary_key=True)
+        name=db.Column(db.String)
         comment = db.Column(db.String(255))
         blog_id = db.Column(db.Integer, db.ForeignKey("myblogs.id"))
         user_id = db.Column(db.Integer, db.ForeignKey("users.id"))

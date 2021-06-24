@@ -1,48 +1,51 @@
 {%extends 'base.html'%}
 {% import 'bootstrap/wtf.html' as wtf%}
 {%block content%}
-<div class="blogpage "style="background-color: rgb(77, 77, 78);color:white;">
-    <div class="row">
-        <div class="col-md-2">
-        <a class="btn btn-primary" href="/blogs">Back</a>
+
+<div class="blogpage " style="background-color: rgb(77, 77, 78);color:white; height:94vh;width:100%; overflow: hidden;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <a class="btn btn-primary" href="/blogs">Back</a>
+            </div>
+            <div class="col-md-12">
+                <h2 class="text-center">Enjoy reading</h2>
+                <h3 class="text-center">{{blog.title}}</h3>
+                <h3 class="text-center"><em>By:{{blog.author}}</em></h3>
+            </div>
         </div>
-        <div class="col-md-8">
-            <h2>Enjoy reading</h2>
-            <h4>{{blog.title}}</h4>
-            <p>{{format_blog|safe}}</p>
+        <!-- <p>{{format_blog|safe}}</p> -->
+        <div class="row">
+            <div class="col-md-8">
+                <p>{{blog.comment}}</p>
+                <div class="card">
+                    <div class="card-title col-md-12" style="color:black;width:100%">
+                        <h3 class="text-center">Leave a Comment</h3>
+                        {{wtf.quick_form(commentform)}}
+                    </div>
+                </div>
+            </div>
             <hr>
-            <h4>--Comments --</h4>
-            <ul>
-                {%for comment in comments %}
-                <li>
-                    {{comment.comment}}
-                </li>
-                {%endfor%}
-            </ul>
-        
-        
-
-       </div>
-        <div class="col-md-2"></div>
-
-
-
-    </div>  
-
-
-    <div class="row">
-
-        <div class="col-md-2"></div>
-        <div class="col-md-5">
-            {{wtf.quick_form(commentform)}}
-
-            {{wtf.quick_form(subscribeform)}}
+            <div class="col-md-4 card text-center" style="color:black;">
+                <h4 class="card-title text-center pt-3">--Comments --</h4> <hr>
+                <div class="card-body">
+                    {% if comments %}
+                    {% for comment in comments%}
+                    <p><strong>{{comment.name}}</strong> <br>{{comment.comment}}</p>
+                    {%endfor%}
+                    {% else %}
+                    <p>There are no comments</p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-        <div class="col-md-3"></div>
-
-        <div class="col-md-2"></div>
+        <div class="row">
+            <div class="col-md-6" style="padding-top:10vh;opacity:transparent;">
+                <!-- {{wtf.quick_form(commentform)}} -->
+                {{wtf.quick_form(subscribeform)}}
+            </div>
+        </div>
     </div>
 </div>
-
 
 {%endblock%}
