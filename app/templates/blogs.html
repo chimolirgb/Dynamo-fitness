@@ -15,7 +15,7 @@
     <hr>
 
     <div class="row">
-        
+
 
         {%for blog in blogs%}
         <div class="col-sm-4">
@@ -25,28 +25,65 @@
                     <hr>
                     <p>By: {{blog.author}} </p>
                     <p>Posted at: {{blog.posted.strftime('%Y-%m-%d')}}</p>
-                    
+
                     {% if current_user.is_authenticated %}
                     <a href="{{url_for('main.comments',id=blog.id)}}" class="btn btn-default btn-success">
                         Read More</a>
-                    <a class="btn btn-default btn-danger"href="{{url_for('main.deleteBlog', id = blog.id)}}" class="card-link">Delete</a>
-            
+                    <a class="btn btn-default btn-danger" href="{{url_for('main.deleteBlog', id = blog.id)}}"
+                        class="card-link">Delete</a>
+
                     {%else %}
                     <a href="{{url_for('auth.login')}}" class="btn btn-default btn-success">
                         Read More</a>
                     <a class="btn btn-default btn-danger" href="{{url_for('main.blog')}}" class="card-link">Delete</a>
-                    
+
                     {% endif%}
 
-                  
+
                 </div>
             </div>
         </div>
         {%endfor%}
-       
+
 
     </div>
 
 </div>
+<div class="container-fluid card-footer"
+    style="height:5vh;color:rgb(161, 161, 192); font-size:25px;text-align: center;background-color: rgb(21, 21, 26);">
+    <div class="row" style="background-color: rgb(21, 21, 26);">
+        <div class="col-md-4">
 
-{%endblock%}
+            <h3>contact us</h3>
+
+            <i class="fa fa-phone" style="font-size:30px;color:rgb(9, 167, 4)">Contact us</i><br>
+            <i class='fas fa-envelope-square' style='font-size:30px;color:rgb(30, 255, 0)'>Email</i>
+
+
+        </div>
+
+        <div class="col-md-4">
+            <h3>Social Media</h3>
+            <div class="card-body" style="font: size 40px;display:flex;flex-direction: column;justify-content:center;">
+                <a href="#" class="fa fa-facebook">-Facebook</a><br>
+                <a href="#" class="fa fa-twitter">-Twitter</a><br>
+                <a href="#" class="fa fa-instagram">-Instagram</a><br>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <h3>Subscription</h3>
+            <div class="subscribe" style="margin: 50px;">
+
+                <input type="text" class="form-control" placeholder="Email">
+                <button class="btn btn-primary">Suscribe</button>
+            </div>
+
+
+        </div>
+        <div class="col-md-12">
+            <p>Copyright &copy; <a href="/"></a>Dynamo Fitness</a></p>
+        </div>
+    </div>
+
+    {%endblock%}

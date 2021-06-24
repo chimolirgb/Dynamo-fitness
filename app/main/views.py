@@ -12,8 +12,17 @@ from ..email import mail_message
 
 @main.route('/')
 def index():
+    subscribeform = SubscriptionForm()
+    if subscribeform.validate_on_submit():
+        email = subscribeform.email.data
+        sub=Subscribe(email=email)
+        sub.save_email()
+        db.session.add(sub)
+        db.session.commit()
 
-   return render_template('index.html' )
+        mail_message("Thank You for Subscribing","/thank_you",sub.email,sub=sub)
+
+    return render_template('index.html',subscribeform=subscribeform)
 
 
 @main.route('/nutrition')
@@ -31,6 +40,11 @@ def workouts():
 def about():
 
    return render_template('about.html')
+
+@main.route('/services')
+def services():
+
+   return render_template('services.html')
 
 @main.route('/blogs')
 def blog():
@@ -71,7 +85,7 @@ def create():
 def comments(id):
     blog = Blog.query.get(id)
     commentform = CommentsForm()
-    subscribeform = SubscriptionForm()
+    
     if commentform.validate_on_submit():
         comment= commentform.comment.data
         new_comment=Comment(comment=comment)
@@ -80,21 +94,14 @@ def comments(id):
         db.session.commit()
         return redirect(url_for('main.comments',id = id))
     
-    if subscribeform.validate_on_submit():
-        email = subscribeform.email.data
-        sub=Subscribe(email=email)
-        sub.save_email()
-        db.session.add(sub)
-        db.session.commit()
-
-        mail_message("Thank You for Subscribing","/thank_you",sub.email,sub=sub)
+    
         
         return redirect(url_for('main.comments',id= id))
     
     
     comment = Comment.query.filter_by(id=id).all()
     format_blog = markdown2.markdown(blog.blog,extras=["code-friendly", "fenced-code-blocks"])
-    return  render_template("comments.html", blog=blog, format_blog=format_blog , commentform=commentform, comments=comment,subscribeform=subscribeform)
+    return  render_template("comments.html", blog=blog, format_blog=format_blog , commentform=commentform, comments=comment)
    
 
 @main.route('/deleteblog/<int:id>', methods=['GET', 'POST'])

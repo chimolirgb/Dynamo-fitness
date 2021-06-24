@@ -1,8 +1,10 @@
 {%extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf%}
 
 {%block styles %}
 {{ super()}}
 <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 {%endblock %}
@@ -11,28 +13,68 @@
 
 
 <div class="container-fluid"
-    style="background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.1)), url('../static/photos/certfiness.jpeg'); height:100vh; background-size: cover; background-repeat: no-repeat;"
-    ;>
+  style="background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.1)), url('../static/photos/certfiness.jpeg'); height:100vh; background-size: cover; background-repeat: no-repeat;"
+  ;>
 
-    <div class="row welcome">
-        <div class="col-md-6" style="color:white;">
+  <div class="row welcome">
+    <div class="col-md-6" style="color:white;">
 
-          <div class="home container-fluid " style="font-size: 30px;margin-top: 40px;margin-left: 35px;background-color:rgb(71, 41, 5);opacity:0.7">
-            <h2" style="font-weight: bolder;">Welcome to dynamo fitness app
-            </h2> <br>
+      <div class="home container-fluid "
+        style="font-size: 30px;margin-top:30vh;margin-left: 35px;background-color:rgb(16, 15, 24);opacity:0.7;border-bottom:3px solid rgb(194, 159, 63);">
+        <h2" style="font-weight: bolder;">Welcome to dynamo fitness app
+          </h2> <br>
 
-            <div class="card card-body">
-                <h4>“The ability to be in the present moment is a major component of mental wellness.”- Abraham Maslow
-                </h4><br>
-                <a class="btn btn-primary " href="/fitness" style="margin-left: 35px; margin-bottom: 20px;">View our Services</a>
-            </div>
+          <div class="card card-body">
+            <h4>“The ability to be in the present moment is a major component of mental wellness.”- Abraham Maslow
+            </h4><br>
+            <a class="btn btn-primary " href="/services" style="margin-left: 35px; margin-bottom: 20px;">View our
+              Services</a>
           </div>
-        </div>
+      </div>
+    </div>
 
 
+
+
+  </div>
+
+</div>
+<div class="container-fluid card-footer"
+  style="height:5vh;color:rgb(161, 161, 192); font-size:25px;text-align: center;background-color: rgb(21, 21, 26);">
+  <div class="row"style="background-color: rgb(21, 21, 26);">
+    <div class="col-md-4">
+
+      <h3>contact us</h3>
+
+      <i class="fa fa-phone" style="font-size:30px;color:rgb(9, 167, 4)">Contact us</i><br>
+      <i class='fas fa-envelope-square' style='font-size:30px;color:rgb(30, 255, 0)'>Email</i>
 
 
     </div>
 
-</div>
-{%endblock%}
+    <div class="col-md-4">
+      <h3>Social Media</h3>
+      <div class="card-body" style="font: size 40px;display:flex;flex-direction: column;justify-content:center;">
+        <a href="#" class="fa fa-facebook">-Facebook</a><br>
+        <a href="#" class="fa fa-twitter">-Twitter</a><br>
+        <a href="#" class="fa fa-instagram">-Instagram</a><br>
+      </div>
+
+    </div>
+    <div class="col-md-4">
+      <h3>Subscription</h3>
+      <div class="subscribe" style="margin: 50px;">
+
+        {{wtf.quick_form(subscribeform)}}
+      </div>
+
+
+    </div>
+    <div class="col-md-12">
+      <p>Copyright &copy; <a href="/"></a>Dynamo Fitness</a></p>
+    </div>
+  </div>
+
+
+
+  {%endblock%}
