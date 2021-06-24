@@ -26,8 +26,13 @@ def workouts():
 
    return render_template('workouts.html')
 
-@main.route('/blogs')
 
+@main.route('/about')
+def about():
+
+   return render_template('about.html')
+
+@main.route('/blogs')
 def blog():
     # user = User.query.filter_by(username = uname).first()
 
