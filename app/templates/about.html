@@ -1,0 +1,97 @@
+{% extends 'base.html'%}
+{%block styles %}
+{{ super()}}
+<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+
+
+{%endblock %}
+
+
+{% block content %}
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12" style="height: 30vh;background-color: rgb(40, 46, 46);">
+            <div class="about" style="color: black;display:block;color: white;">
+
+                <h2>About Us</h2>
+
+                <p>Lifestyle behaviors are the most important factors in short-term and long-term well-being. Developing
+                    healthy lifestyle habits will have a dramatic effect on overall wellness. Components of a healthy
+                    lifestyle include: physical activity, balanced and adequate nutrition, rest, recovery and stress
+                    management. </p>
+            </div>
+
+        </div>
+
+        <div class="col-md-6" style="background-color: rgb(15, 11, 5);color:white;">
+
+            <h3>Who we are</h3>
+            <hr>
+
+            <ul>
+                <li><a href="#team">Our Team</a></li>
+                <li><a href="#whatwedo">What we do</a></li>
+            </ul>
+
+            <div class="team"
+                style="border-radius: 50%;display:flex; flex-direction: row; justify-content:space-around;">
+                <div class="lucy">
+                    <img src="../static/photos/golden.jpg" alt="Lucy" height="100px" width="100px">
+                    <p>Scrum Master</p>
+                </div>
+                <div class="ibrahim">
+                    <img src="../static/photos/lemmon_strawberry.jpg" alt="Ibrahim" height="100px" width="100px">
+                    <p>Back-end developer</p>
+                </div>
+                <div class="yegon">
+                    <img src="../static/photos/fit.jpeg" alt="Yegon" height="100px" width="100px">
+                    <p>Back-end developer</p>
+                </div>
+                <div class="ephraim">
+                    <img src="../static/photos/certfiness.jpeg" alt="Ephraim" height="100px" width="100px">
+                    <p>Project designer</p>
+                </div>
+                <div class="budds">
+                    <img src="../static/photos/savory_sweet.jpg" alt="Budds" height="100px" width="100px">
+                    <p>Front-end developer</p>
+                </div>
+            </div>
+            <div class="whatwedo">
+                <hr>
+
+
+                <h3>what we do</h3>
+                <ul>
+                    <li>Yoga Classes</li>
+                    <li>Diet Recommendations</li>
+                    <li>Dance Classes</li>
+                    <li>Recipes for both foods and drinks</li>
+                    <li>Intense Abb workouts</li>
+                </ul>
+
+
+            </div>
+
+
+
+
+
+
+
+
+        </div>
+        <div class="col-md-6"
+            style="background-image: url('../static/photos/lisun.jpeg'); height: 80vh;background-repeat: no-repeat;background-size:cover;">
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+{%endblock%}
