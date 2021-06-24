@@ -3,6 +3,7 @@
 {%block styles %}
 {{ super()}}
 <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 {%endblock %}
@@ -11,28 +12,80 @@
 
 
 <div class="container-fluid"
-    style="background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.1)), url('../static/photos/certfiness.jpeg'); height:100vh; background-size: cover; background-repeat: no-repeat;"
-    ;>
+  style="background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.1)), url('../static/photos/certfiness.jpeg'); height:100vh; background-size: cover; background-repeat: no-repeat;"
+  ;>
 
-    <div class="row welcome">
-        <div class="col-md-6" style="color:white;">
+  <div class="row welcome">
+    <div class="col-md-6" style="color:white;">
 
-          <div class="home container-fluid " style="font-size: 30px;margin-top: 40px;margin-left: 35px;background-color:rgb(71, 41, 5);opacity:0.7">
-            <h2" style="font-weight: bolder;">Welcome to dynamo fitness app
-            </h2> <br>
+      <div class="home container-fluid "
+        style="font-size: 30px;margin-top: 40px;margin-left: 35px;background-color:rgb(71, 41, 5);opacity:0.7">
+        <h2" style="font-weight: bolder;">Welcome to dynamo fitness app
+          </h2> <br>
 
-            <div class="card card-body">
-                <h4>“The ability to be in the present moment is a major component of mental wellness.”- Abraham Maslow
-                </h4><br>
-                <a class="btn btn-primary " href="/fitness" style="margin-left: 35px; margin-bottom: 20px;">View our Services</a>
-            </div>
+          <div class="card card-body">
+            <h4>“The ability to be in the present moment is a major component of mental wellness.”- Abraham Maslow
+            </h4><br>
+            <a class="btn btn-primary " href="/fitness" style="margin-left: 35px; margin-bottom: 20px;">View our
+              Services</a>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="card-footer bg-danger" style="height:10vh;color:blue; font-size:25px;">
+    <div class="row">
+      <div class="col-md-4">contact us</div>
+      <div class="col-md-4">Social Media</div>
+      <div class="col-md-4">Subscription</div>
+    </div>
+  </div>
+
+<div class="container-fluid pb-0 mb-0 justify-content-center text-light ">
+  <footer>
+    <div class="row my-5 justify-content-center py-5">
+      <div class="col-11">
+        <div class="row ">
+          <div class="col-xl-8 col-md-4 col-sm-4 col-12 my-auto mx-auto a">
+            <h3 class="text-muted mb-md-0 mb-5 bold-text">DYNAMO FITNESS.</h3>
           </div>
         </div>
-
-
-
-
+        <div class="row ">
+          
+          <div class="col-xl-8 col-md-4 col-sm-4 col-auto my-md-0 mt-5 order-sm-1 order-3 align-self-end">
+            <a href="#" class="fa fa-facebook"></a>
+            <a href="#" class="fa fa-twitter"></a>
+            <p class="social text-muted mb-0 pb-0 bold-text"> <span class="mx-2"><i class="fa fa-facebook"
+                  aria-hidden="true"></i></span> <span class="mx-2"><i class="glyphicon glyphicon-phone-alt"
+                  aria-hidden="true"></i></span> <span class="mx-2"><i class="bi bi-align-en"
+                  aria-hidden="true"></i></span> <span class="mx-2"><i class="fa fa-instagram"
+                  aria-hidden="true"></i></span> </p><small class="rights"><span>&#174;</span> Dynamo
+              All Rights Reserved.</small>
+          </div>
+          <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-1 align-self-end ">
+            <h6 class="mt-55 mt-2 text-muted bold-text"><b>Lucy Chimoli</b></h6><small> <span><i class="fa fa-envelope"
+                  aria-hidden="true"></i></span> @gmail.com</small>
+          </div>
+          <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-2 align-self-end mt-3 ">
+            <h6 class="text-muted bold-text"><b>Ibrahim </b></h6><small><span><i class="fa fa-envelope"
+                  aria-hidden="true"></i></span> @gmail.com</small>
+          </div>
+          <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-2 align-self-end mt-3 ">
+            <h6 class="text-muted bold-text"><b>Yegon </b></h6><small><span><i class="fa fa-envelope"
+                  aria-hidden="true"></i></span> @gmail.com</small>
+          </div>
+          <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-2 align-self-end mt-3 ">
+            <h6 class="text-muted bold-text"><b>Taminga </b></h6><small><span><i class="fa fa-envelope"
+                  aria-hidden="true"></i></span> @gmail.com</small>
+          </div>
+          <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-2 align-self-end mt-3 ">
+            <h6 class="text-muted bold-text"><b>Kamau</b></h6><small><span><i class="fa fa-envelope"
+                  aria-hidden="true"></i></span> @gmail.com</small>
+          </div>
+        </div>
+      </div>
     </div>
-
+  </footer>
 </div>
+  
 {%endblock%}
