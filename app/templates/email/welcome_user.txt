@@ -1,0 +1,5 @@
+Hello {{user.username}},
+Welcome to iDynmao Fitness!,
+Its great to have you! We're glad you have have joined our Community.Let's do this together.
+
+Thank you!

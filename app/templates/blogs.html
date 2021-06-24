@@ -1,0 +1,52 @@
+{% extends 'base.html'%}
+
+{% block content%}
+<div class="container-fluid" style="height: 100vh; background-color: rgb(77, 77, 78);">
+
+
+    <h3>Blogs page</h3>
+    {% if current_user.is_authenticated %}
+    <a class="btn btn-primary text-bold" href="/blogs/create_blog">Create Your Own blog</a>
+    {%else %}
+    <a class="btn btn-primary text-bold" href="{{url_for('main.blog')}}">Create Your Own blog</a>
+    {% endif%}
+
+    <br><br>
+    <hr>
+
+    <div class="row">
+        
+
+        {%for blog in blogs%}
+        <div class="col-sm-4">
+            <div class=" card">
+                <div class="well well-lg p-3" style="text-align: center;border-bottom: 1px solid green;">
+                    <h3 class="pitch1">{{blog.title}}</h3>
+                    <hr>
+                    <p>By: {{blog.author}} </p>
+                    <p>Posted at: {{blog.posted.strftime('%Y-%m-%d')}}</p>
+                    
+                    {% if current_user.is_authenticated %}
+                    <a href="{{url_for('main.comments',id=blog.id)}}" class="btn btn-default btn-success">
+                        Read More</a>
+                    <a class="btn btn-default btn-danger"href="{{url_for('main.deleteBlog', id = blog.id)}}" class="card-link">Delete</a>
+            
+                    {%else %}
+                    <a href="{{url_for('auth.login')}}" class="btn btn-default btn-success">
+                        Read More</a>
+                    <a class="btn btn-default btn-danger" href="{{url_for('main.blog')}}" class="card-link">Delete</a>
+                    
+                    {% endif%}
+
+                  
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+       
+
+    </div>
+
+</div>
+
+{%endblock%}

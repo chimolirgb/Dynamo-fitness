@@ -1,0 +1,26 @@
+{% extends 'base.html'%}
+
+{% block content%}
+{% import 'bootstrap/wtf.html' as wtf%}
+<div class="makeblog" style="height: 150vh;background-color: rgb(83, 83, 85);color:white;">
+
+ 
+  <div class="row " style="height:100%">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <h3>Create a blog</h3>
+      <hr>
+      {{wtf.quick_form(blog_form)}}
+      {{simplemde.load}}
+    </div>
+    <div class="col-md-3"></div>
+
+
+  </div>
+
+
+</div>
+<br>
+<br>
+
+{%endblock%}
