@@ -1,51 +1,35 @@
-{%extends 'base.html'%}
-{% import 'bootstrap/wtf.html' as wtf%}
-{%block content%}
-<div class="blogpage " style="background-color: rgb(77, 77, 78);color:white;">
+{% extends 'base.html'%}
+{% block content %}
+
+<div class="container-fluid"
+    style="background-image: url('../static/photos/services.jpeg'); background-repeat: no-repeat;background-size:cover;height: 60vh;">
+
     <div class="row">
-        <div class="col-md-2">
-         
-        </div>
-        
-        <div class="col-md-8">
-            <a class="btn btn-primary" href="/blogs">Back</a> <br>
-            <h2>Enjoy reading</h2>
-            <h4>{{blog.title}}</h4>
-            <p>{{format_blog|safe}}</p>
+
+        <div class="col-md-1"></div>
+
+        <div class="col-md-5" style="font-size:larger; background-color:rgb(24, 24, 29);color:white; margin-top: 40px;">
+            <h3>-OUr Services-</h3>
             <hr>
-            <h4>--Comments --</h4>
             <ul>
-                {%for comment in comments %}
-                <li>
-                    {{comment.comment}}
-                </li>
-                {%endfor%}
+                <li>-Yoga Classes</li>
+                <li>-Diet Recommendations</li>
+                <li>-Dance Classes</li>
+                <li>-Recipes for both foods and drinks</li>
+                <li>-Intense Abb workouts</li>
             </ul>
 
-
-
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-md-1"></div>
+
 
 
 
     </div>
 
 
-    <div class="row">
-
-        <div class="col-md-2"></div>
-        <div class="col-md-5">
-            {{wtf.quick_form(commentform)}}
-
-
-        </div>
-        <div class="col-md-3"></div>
-
-        <div class="col-md-2"></div>
-    </div>
-    <br>
 </div>
+
 <div class="container-fluid card-footer"
     style="height:5vh;color:rgb(161, 161, 192); font-size:25px;text-align: center;background-color: rgb(21, 21, 26);">
     <div class="row" style="background-color: rgb(21, 21, 26);">
@@ -71,9 +55,9 @@
         <div class="col-md-4">
             <h3>Subscription</h3>
             <div class="subscribe" style="margin: 50px;">
+
                 <input type="text" class="form-control" placeholder="Email">
                 <button class="btn btn-primary">Suscribe</button>
-
             </div>
 
 
@@ -82,5 +66,4 @@
             <p>Copyright &copy; <a href="/"></a>Dynamo Fitness</a></p>
         </div>
     </div>
-
     {%endblock%}

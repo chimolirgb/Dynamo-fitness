@@ -8,17 +8,26 @@ from . import main
 from flask import render_template,redirect, url_for,abort,flash,request
 from flask_login import login_required, current_user
 from ..models import User,Blog,Comment,Subscribe
-from .. import db
+from .. import db,photos
 from .forms import BlogForm,CommentsForm,UpdateProfile,SubscriptionForm
 import markdown2 
 
 from ..email import mail_message
 
 
-@main.route('/')
+@main.route('/',methods=['POST','GET'])
 def index():
+    subscribeform = SubscriptionForm()
+    if subscribeform.validate_on_submit():
+        email = subscribeform.email.data
+        sub=Subscribe(email=email)
+        sub.save_email()
+        db.session.add(sub)
+        db.session.commit()
 
-   return render_template('index.html' )
+        mail_message("Thank You for Subscribing","/thank_you",sub.email,sub=sub)
+
+    return render_template('index.html',subscribeform=subscribeform)
 
 # @main.route('/contact', methods=["GET", "POST"])
 # def contact():
@@ -55,8 +64,18 @@ def workouts():
 
    return render_template('workouts.html')
 
-@main.route('/blogs')
 
+@main.route('/about')
+def about():
+
+   return render_template('about.html')
+
+@main.route('/services')
+def services():
+
+   return render_template('services.html')
+
+@main.route('/blogs')
 def blog():
     # user = User.query.filter_by(username = uname).first()
 
@@ -95,7 +114,7 @@ def create():
 def comments(id):
     blog = Blog.query.get(id)
     commentform = CommentsForm()
-    subscribeform = SubscriptionForm()
+    
     if commentform.validate_on_submit():
         comment= commentform.comment.data
         new_comment=Comment(comment=comment)
@@ -104,21 +123,12 @@ def comments(id):
         db.session.commit()
         return redirect(url_for('main.comments',id = id))
     
-    if subscribeform.validate_on_submit():
-        email = subscribeform.email.data
-        sub=Subscribe(email=email)
-        sub.save_email()
-        db.session.add(sub)
-        db.session.commit()
-
-        mail_message("Thank You for Subscribing","/thank_you",sub.email,sub=sub)
-        
-        return redirect(url_for('main.comments',id= id))
+         
     
     
     comment = Comment.query.filter_by(id=id).all()
     format_blog = markdown2.markdown(blog.blog,extras=["code-friendly", "fenced-code-blocks"])
-    return  render_template("comments.html", blog=blog, format_blog=format_blog , commentform=commentform, comments=comment,subscribeform=subscribeform)
+    return  render_template("comments.html", blog=blog, format_blog=format_blog , commentform=commentform, comments=comment)
    
 
 @main.route('/deleteblog/<int:id>', methods=['GET', 'POST'])
@@ -143,6 +153,8 @@ def profile(uname):
 
     return render_template("profile/profile.html", user = user)
 
+
+@main.route('/user/<uname>/update',methods = ['GET','POST'])
 @login_required
 def update_profile(uname):
     user = User.query.filter_by(username = uname).first()
@@ -160,8 +172,9 @@ def update_profile(uname):
         return redirect(url_for('.profile',uname=user.username))
 
     return render_template('profile/update.html',form =form)
-    
-@main.route('/user/<uname>/update/pic',methods= ['POST'])
+
+
+@main.route('/user/<uname>/update/pic',methods= ['POST','GET'])
 @login_required
 def update_pic(uname):
     user = User.query.filter_by(username = uname).first()
