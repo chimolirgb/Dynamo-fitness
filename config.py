@@ -22,7 +22,7 @@ class ProdConfig(Config):
 
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://moringa:dynamo@localhost/dynamo'
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://postgres:Access@localhost/dynamo'
     DEBUG =True
 
 config_options = {
