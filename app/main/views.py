@@ -3,14 +3,14 @@ from . import main
 from flask import render_template,redirect, url_for,abort,flash,request
 from flask_login import login_required, current_user
 from ..models import User,Blog,Comment,Subscribe
-from .. import db
+from .. import db,photos
 from .forms import BlogForm,CommentsForm,UpdateProfile,SubscriptionForm
 import markdown2 
 
 from ..email import mail_message
 
 
-@main.route('/')
+@main.route('/',methods=['POST','GET'])
 def index():
     subscribeform = SubscriptionForm()
     if subscribeform.validate_on_submit():
@@ -94,9 +94,7 @@ def comments(id):
         db.session.commit()
         return redirect(url_for('main.comments',id = id))
     
-    
-        
-        return redirect(url_for('main.comments',id= id))
+         
     
     
     comment = Comment.query.filter_by(id=id).all()
@@ -126,6 +124,8 @@ def profile(uname):
 
     return render_template("profile/profile.html", user = user)
 
+
+@main.route('/user/<uname>/update',methods = ['GET','POST'])
 @login_required
 def update_profile(uname):
     user = User.query.filter_by(username = uname).first()
@@ -143,8 +143,9 @@ def update_profile(uname):
         return redirect(url_for('.profile',uname=user.username))
 
     return render_template('profile/update.html',form =form)
-    
-@main.route('/user/<uname>/update/pic',methods= ['POST'])
+
+
+@main.route('/user/<uname>/update/pic',methods= ['POST','GET'])
 @login_required
 def update_pic(uname):
     user = User.query.filter_by(username = uname).first()
