@@ -1,3 +1,4 @@
+ 
 from . import auth
 from .. import db
 from flask import render_template,redirect,url_for, flash,request
@@ -42,3 +43,4 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for("main.index"))
+
